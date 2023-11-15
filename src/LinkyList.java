@@ -1,7 +1,7 @@
 public class LinkyList<T> {
-    private LinkedNode<T> head;
-    private LinkedNode<T> tail;
-    private int numNodes;
+    LinkedNode<T> head;
+    LinkedNode<T> tail;
+    int numNodes;
     
     /**
      * The only constructor for a new LinkedList
@@ -11,6 +11,35 @@ public class LinkyList<T> {
         head = new LinkedNode<T>(null);
         tail = head;
     }
+
+    /**
+     * push a new node onto the LinkedList
+     * @param newNode
+     */
+    public void push(T newData){
+        tail.next = new LinkedNode<T>(newData);
+        tail = tail.next;
+        tail.prev = tail.prev.prev;
+
+        numNodes++;
+    }
+
+    public T remove(T removedObject){
+        LinkedNode temp = head;
+
+        while(temp.data != removedObject){
+            temp = temp.next;
+        }
+        T removedData = (T) temp.data;
+        temp.prev = null;
+        temp.next = null;
+
+        numNodes--;
+        return removedData;
+
+        
+    }
+
     /**
      * 
      * @return head of LinkedList
@@ -44,6 +73,10 @@ public class LinkyList<T> {
             System.out.print(temp.data + ", ");
             temp = temp.next;
         }
+        System.out.println();
+        System.out.println("There are -> " + numNodes + " <- nodes in this list");
     }
+
+
     
 }
